@@ -51,7 +51,7 @@ public class HomeController : Controller
                 new GalleryImage { Id = 2, Title = "Clinic Interior", ImagePath = "/images/gallery/clinic-1.jpg", Category = "Clinic" },
                 new GalleryImage { Id = 3, Title = "Treatment Room", ImagePath = "/images/gallery/treatment-1.jpg", Category = "Clinic" }
             },
-            Statistics = new Dictionary<string, int>
+            Statistics = new Dictionary<string,int>
             {
                 { "TotalPatients", 1250 },
                 { "TotalAppointments", 3500 },
@@ -71,19 +71,25 @@ public class HomeController : Controller
             Description = "Apollo Aesthetics is a leading medical clinic specializing in dental care and aesthetic treatments.",
             Mission = "To provide world-class medical and dental care with the latest technology and techniques.",
             Vision = "To be the most trusted healthcare provider in the region.",
+            YearsOfExperience = 20,
+            HappyPatients = 1250,
+            Treatments = 5000,
+            Awards = 15,
+            Values = new List<string> { "Integrity","Compassion","Excellence" },
             Doctors = new List<Doctor>
-            {
-                new Doctor { Id = 1, FirstName = "Dr. Mehmet", LastName = "Özkan", Specialization = "Dental Implants", Biography = "15+ years of experience in dental implantology", YearsOfExperience = 15 },
-                new Doctor { Id = 2, FirstName = "Dr. Ayşe", LastName = "Demir", Specialization = "Cosmetic Dentistry", Biography = "Expert in smile design and cosmetic procedures", YearsOfExperience = 12 }
-            },
-            Statistics = new Dictionary<string, int>
-            {
-                { "TotalPatients", 1250 },
-                { "TotalDoctors", 8 },
-                { "YearsOfExperience", 20 },
-                { "SuccessRate", 98 }
-            }
+    {
+        new Doctor { Id = 1, FirstName = "Dr. Mehmet", LastName = "Özkan", Specialization = "Dental Implants", Biography = "15+ years of experience in dental implantology", YearsOfExperience = 15 },
+        new Doctor { Id = 2, FirstName = "Dr. Ayşe", LastName = "Demir", Specialization = "Cosmetic Dentistry", Biography = "Expert in smile design and cosmetic procedures", YearsOfExperience = 12 }
+    },
+            Statistics = new Dictionary<string,int>
+    {
+        { "TotalPatients", 1250 },
+        { "TotalDoctors", 8 },
+        { "YearsOfExperience", 20 },
+        { "SuccessRate", 98 }
+    }
         };
+
 
         return View(model);
     }
@@ -93,15 +99,61 @@ public class HomeController : Controller
         var model = new ServicesViewModel
         {
             Services = new List<MedicalService>
-            {
-                new MedicalService { Id = 1, ServiceName = "Dental Implants", Description = "High-quality dental implants with lifetime warranty", Price = 1500, Category = "Dental", Icon = "fas fa-tooth" },
-                new MedicalService { Id = 2, ServiceName = "Teeth Whitening", Description = "Professional teeth whitening for a brighter smile", Price = 300, Category = "Dental", Icon = "fas fa-smile" },
-                new MedicalService { Id = 3, ServiceName = "Orthodontics", Description = "Braces and clear aligners for perfect teeth alignment", Price = 2000, Category = "Dental", Icon = "fas fa-teeth" },
-                new MedicalService { Id = 4, ServiceName = "Hair Transplant", Description = "FUE hair transplantation with natural results", Price = 2500, Category = "Aesthetic", Icon = "fas fa-user" },
-                new MedicalService { Id = 5, ServiceName = "Botox Treatment", Description = "Anti-aging botox treatments", Price = 400, Category = "Aesthetic", Icon = "fas fa-syringe" }
-            },
-            Categories = new List<string> { "All", "Dental", "Aesthetic" }
+    {
+        new MedicalService
+        {
+            Id = 1,
+            ServiceName = "Dental Implants",
+            Description = "High-quality dental implants with lifetime warranty",
+            EstimatedDuration = "2 hours",
+            Price = 1500,
+            Category = "Dental",
+            Icon = "fas fa-tooth"
+        },
+        new MedicalService
+        {
+            Id = 2,
+            ServiceName = "Teeth Whitening",
+            Description = "Professional teeth whitening for a brighter smile",
+            EstimatedDuration = "1 hour",
+            Price = 300,
+            Category = "Dental",
+            Icon = "fas fa-smile"
+        },
+        new MedicalService
+        {
+            Id = 3,
+            ServiceName = "Orthodontics",
+            Description = "Braces and clear aligners for perfect teeth alignment",
+            EstimatedDuration = "30 minutes (consultation)",
+            Price = 2000,
+            Category = "Dental",
+            Icon = "fas fa-teeth"
+        },
+        new MedicalService
+        {
+            Id = 4,
+            ServiceName = "Hair Transplant",
+            Description = "FUE hair transplantation with natural results",
+            EstimatedDuration = "6 hours",
+            Price = 2500,
+            Category = "Aesthetic",
+            Icon = "fas fa-user"
+        },
+        new MedicalService
+        {
+            Id = 5,
+            ServiceName = "Botox Treatment",
+            Description = "Anti-aging botox treatments",
+            EstimatedDuration = "45 minutes",
+            Price = 400,
+            Category = "Aesthetic",
+            Icon = "fas fa-syringe"
+        }
+    },
+            Categories = new List<string> { "All","Dental","Aesthetic" }
         };
+
 
         return View(model);
     }
@@ -112,13 +164,13 @@ public class HomeController : Controller
         {
             Images = new List<GalleryImage>
             {
-                new GalleryImage { Id = 1, Title = "Before & After - Dental Implants", ImagePath = "/images/gallery/before-after-1.jpg", Category = "Before & After" },
-                new GalleryImage { Id = 2, Title = "Clinic Reception", ImagePath = "/images/gallery/clinic-1.jpg", Category = "Clinic" },
-                new GalleryImage { Id = 3, Title = "Treatment Room", ImagePath = "/images/gallery/treatment-1.jpg", Category = "Clinic" },
-                new GalleryImage { Id = 4, Title = "Hair Transplant Results", ImagePath = "/images/gallery/hair-1.jpg", Category = "Before & After" },
-                new GalleryImage { Id = 5, Title = "Dental Equipment", ImagePath = "/images/gallery/equipment-1.jpg", Category = "Equipment" }
+                new GalleryImage { Id = 1, Title = "Before & After - Dental Implants", ImagePath = "https://www.pngmart.com/files/23/Dentist-PNG-File.png", Category = "Before & After" },
+                new GalleryImage { Id = 2, Title = "Clinic Reception", ImagePath = "https://www.pngmart.com/files/23/Dentist-PNG-Picture.png", Category = "Clinic" },
+                new GalleryImage { Id = 3, Title = "Treatment Room", ImagePath = "https://wallpapers.com/images/high/dental-background-4220-x-2813-58sfux31khutdgcu.webp", Category = "Clinic" },
+                new GalleryImage { Id = 4, Title = "Hair Transplant Results", ImagePath = "https://wallpapers.com/images/high/dental-background-1600-x-1105-3obxp65bnwc458zb.webp", Category = "Before & After" },
+                new GalleryImage { Id = 5, Title = "Dental Equipment", ImagePath = "https://wallpapers.com/images/high/dental-background-3nzkww2qw1dleiwb.webp", Category = "Equipment" }
             },
-            Categories = new List<string> { "All", "Before & After", "Clinic", "Equipment" }
+            Categories = new List<string> { "All","Before & After","Clinic","Equipment" }
         };
 
         return View(model);
@@ -126,7 +178,7 @@ public class HomeController : Controller
 
     public IActionResult Contact()
     {
-        var model = new ContactViewModel();
+        var model = new ContactViewModel( );
         return View(model);
     }
 
@@ -151,17 +203,17 @@ public class HomeController : Controller
         };
 
         await _consultationService.CreateConsultationAsync(consultationDto);
-        
+
         TempData["SuccessMessage"] = "Thank you for your message. We will contact you soon!";
         return RedirectToAction("Contact");
     }
 
     public IActionResult Privacy()
     {
-        return View();
+        return View( );
     }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    [ResponseCache(Duration = 0,Location = ResponseCacheLocation.None,NoStore = true)]
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = System.Diagnostics.Activity.Current?.Id ?? HttpContext.TraceIdentifier });
