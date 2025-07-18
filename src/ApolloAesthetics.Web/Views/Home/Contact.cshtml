@@ -1,0 +1,259 @@
+@model ContactViewModel
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<div class="contact-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 fw-bold text-white mb-4">Contact Us</h1>
+                <p class="lead text-white-50">Get in touch with our team for consultations and appointments</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="contact-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mb-5">
+                <div class="contact-form-card">
+                    <h3 class="mb-4">Send us a Message</h3>
+                    
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            @TempData["SuccessMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    <form asp-action="Contact" method="post">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ContactForm.Name" class="form-label">Full Name *</label>
+                                <input asp-for="ContactForm.Name" class="form-control" placeholder="Enter your full name">
+                                <span asp-validation-for="ContactForm.Name" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ContactForm.Email" class="form-label">Email Address *</label>
+                                <input asp-for="ContactForm.Email" class="form-control" placeholder="Enter your email">
+                                <span asp-validation-for="ContactForm.Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ContactForm.Phone" class="form-label">Phone Number *</label>
+                                <input asp-for="ContactForm.Phone" class="form-control" placeholder="Enter your phone number">
+                                <span asp-validation-for="ContactForm.Phone" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ContactForm.Subject" class="form-label">Subject *</label>
+                                <input asp-for="ContactForm.Subject" class="form-control" placeholder="Enter subject">
+                                <span asp-validation-for="ContactForm.Subject" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="ContactForm.Message" class="form-label">Message *</label>
+                            <textarea asp-for="ContactForm.Message" class="form-control" rows="5" placeholder="Enter your message"></textarea>
+                            <span asp-validation-for="ContactForm.Message" class="text-danger"></span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ContactForm.PreferredContactMethod" class="form-label">Preferred Contact Method</label>
+                                <select asp-for="ContactForm.PreferredContactMethod" class="form-select">
+                                    <option value="">Select method</option>
+                                    <option value="Email">Email</option>
+                                    <option value="Phone">Phone</option>
+                                    <option value="WhatsApp">WhatsApp</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ContactForm.PreferredContactTime" class="form-label">Preferred Contact Time</label>
+                                <input asp-for="ContactForm.PreferredContactTime" type="datetime-local" class="form-control">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-paper-plane me-2"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="contact-info-card mb-4">
+                    <h4 class="mb-4">Contact Information</h4>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h6>Address</h6>
+                            <p>@Model.Address</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h6>Phone</h6>
+                            <p><a href="tel:@Model.Phone">@Model.Phone</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h6>Email</h6>
+                            <p><a href="mailto:@Model.Email">@Model.Email</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h6>Working Hours</h6>
+                            <p>@Html.Raw(Model.WorkingHours.Replace("\n", "<br>"))</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="map-card">
+                    <h5 class="mb-3">Find Us</h5>
+                    <div class="map-container">
+                        <iframe src="@Model.MapUrl" 
+                                width="100%" 
+                                height="250" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <style>
+        .contact-hero {
+            background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%);
+            padding: 100px 0;
+        }
+
+        .contact-form-card, .contact-info-card, .map-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .contact-form-card h3 {
+            color: #212529;
+            font-weight: 600;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+
+        .form-control, .form-select {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #0d6efd, #6610f2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .contact-details h6 {
+            color: #212529;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .contact-details p {
+            color: #6c757d;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .contact-details a {
+            color: #0d6efd;
+            text-decoration: none;
+        }
+
+        .contact-details a:hover {
+            text-decoration: underline;
+        }
+
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0d6efd, #6610f2);
+            border: none;
+            border-radius: 10px;
+            padding: 12px 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.4);
+        }
+
+        @@media (max-width: 768px) {
+            .contact-form-card, .contact-info-card, .map-card {
+                padding: 25px;
+            }
+            
+            .contact-hero {
+                padding: 60px 0;
+            }
+        }
+    </style>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

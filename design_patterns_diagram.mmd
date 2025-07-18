@@ -1,0 +1,62 @@
+graph TD
+    subgraph "Repository Pattern"
+        A[IRepository&lt;T&gt;] --> B[Repository&lt;T&gt;]
+        B --> C[ApplicationDbContext]
+        A --> D[IAppointmentRepository]
+        A --> E[IPatientRepository]
+    end
+
+    subgraph "Unit of Work Pattern"
+        F[IUnitOfWork] --> G[UnitOfWork]
+        G --> H[Repositories]
+        G --> I[SaveChanges]
+        G --> J[Transaction Management]
+    end
+
+    subgraph "Dependency Injection"
+        K[ServiceCollection] --> L[Services Registration]
+        L --> M[Application Services]
+        L --> N[Infrastructure Services]
+        L --> O[Identity Services]
+    end
+
+    subgraph "MVC Pattern"
+        P[Model] --> Q[View]
+        Q --> R[Controller]
+        R --> P
+        R --> S[Business Logic]
+    end
+
+    subgraph "DTO Pattern"
+        T[Domain Entities] --> U[DTOs]
+        U --> V[API Responses]
+        U --> W[View Models]
+        X[Mapping] --> U
+    end
+
+    subgraph "Factory Pattern"
+        Y[ServiceFactory] --> Z[Service Creation]
+        Z --> AA[Runtime Service Selection]
+        Z --> BB[Configuration Based]
+    end
+
+    subgraph "Strategy Pattern"
+        CC[IAuthStrategy] --> DD[EmailAuth]
+        CC --> EE[PhoneAuth]
+        CC --> FF[SocialAuth]
+    end
+
+    subgraph "Observer Pattern"
+        GG[Event Publisher] --> HH[Event Subscribers]
+        HH --> II[Email Notifications]
+        HH --> JJ[SMS Notifications]
+        HH --> KK[Audit Logging]
+    end
+
+    %% Relationships
+    F --> A
+    K --> F
+    R --> M
+    M --> F
+    T --> X
+

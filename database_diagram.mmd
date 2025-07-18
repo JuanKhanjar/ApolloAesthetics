@@ -1,0 +1,188 @@
+erDiagram
+    ApplicationUser {
+        string Id PK
+        string FirstName
+        string LastName
+        string Email
+        string PhoneNumber
+        datetime DateOfBirth
+        string ProfilePicture
+        bool IsActive
+        datetime CreatedAt
+        datetime UpdatedAt
+    }
+
+    ApplicationRole {
+        string Id PK
+        string Name
+        string Description
+        bool IsActive
+        datetime CreatedAt
+        datetime UpdatedAt
+    }
+
+    Doctor {
+        int Id PK
+        string UserId FK
+        string Specialization
+        string LicenseNumber
+        string Biography
+        string Education
+        int YearsOfExperience
+        string ProfileImage
+        bool IsAvailable
+        datetime CreatedAt
+        datetime UpdatedAt
+        bool IsDeleted
+    }
+
+    Patient {
+        string Id PK
+        string UserId FK
+        string MedicalHistory
+        string Allergies
+        string EmergencyContact
+        string EmergencyPhone
+        string InsuranceInfo
+        datetime CreatedAt
+        datetime UpdatedAt
+        bool IsDeleted
+    }
+
+    MedicalService {
+        int Id PK
+        string Name
+        string NameAr
+        string Description
+        string DescriptionAr
+        decimal Price
+        string Category
+        string ImageUrl
+        bool IsActive
+        datetime CreatedAt
+        datetime UpdatedAt
+        bool IsDeleted
+    }
+
+    Appointment {
+        int Id PK
+        string PatientId FK
+        int DoctorId FK
+        int ServiceId FK
+        datetime AppointmentDate
+        int Status
+        string Notes
+        string PatientNotes
+        string DoctorNotes
+        decimal TotalCost
+        datetime CreatedAt
+        datetime UpdatedAt
+        bool IsDeleted
+    }
+
+    ConsultationRequest {
+        int Id PK
+        string Name
+        string Email
+        string Phone
+        string Subject
+        string Message
+        int Status
+        int Priority
+        int PreferredContactMethod
+        datetime PreferredContactTime
+        string Response
+        datetime ResponseDate
+        string AssignedTo
+        datetime CreatedAt
+        datetime UpdatedAt
+        bool IsDeleted
+    }
+
+    GalleryImage {
+        int Id PK
+        string Title
+        string TitleAr
+        string Description
+        string DescriptionAr
+        string ImageUrl
+        string Category
+        int DisplayOrder
+        bool IsActive
+        datetime CreatedAt
+        datetime UpdatedAt
+        bool IsDeleted
+    }
+
+    BeforeAfterImage {
+        int Id PK
+        int ServiceId FK
+        string Title
+        string TitleAr
+        string BeforeImageUrl
+        string AfterImageUrl
+        string Description
+        string DescriptionAr
+        bool IsActive
+        datetime CreatedAt
+        datetime UpdatedAt
+        bool IsDeleted
+    }
+
+    Testimonial {
+        int Id PK
+        string PatientName
+        string PatientImage
+        string Content
+        string ContentAr
+        int Rating
+        int ServiceId FK
+        bool IsApproved
+        bool IsActive
+        datetime CreatedAt
+        datetime UpdatedAt
+        bool IsDeleted
+    }
+
+    DoctorService {
+        int DoctorId FK
+        int ServiceId FK
+        datetime CreatedAt
+    }
+
+    Content {
+        int Id PK
+        string Key
+        string Title
+        string TitleAr
+        string Body
+        string BodyAr
+        string Type
+        datetime CreatedAt
+        datetime UpdatedAt
+        bool IsDeleted
+    }
+
+    SiteSetting {
+        int Id PK
+        string Key
+        string Value
+        string Description
+        string Type
+        datetime CreatedAt
+        datetime UpdatedAt
+    }
+
+    %% Relationships
+    ApplicationUser ||--o{ Doctor : "has"
+    ApplicationUser ||--o{ Patient : "has"
+    
+    Doctor ||--o{ Appointment : "provides"
+    Patient ||--o{ Appointment : "books"
+    MedicalService ||--o{ Appointment : "includes"
+    
+    Doctor }o--o{ MedicalService : "DoctorService"
+    
+    MedicalService ||--o{ BeforeAfterImage : "showcases"
+    MedicalService ||--o{ Testimonial : "receives"
+

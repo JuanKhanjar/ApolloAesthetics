@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Apollo Aesthetics Admin</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar__header">
+                <h2 class="sidebar__title">Apollo Admin</h2>
+            </div>
+            <nav class="sidebar__nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="/admin/dashboard" class="nav-link nav-link--active">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/appointments" class="nav-link">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Appointments</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/patients" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Patients</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/consultations" class="nav-link">
+                            <i class="fas fa-comments"></i>
+                            <span>Consultations</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/services" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Services</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/doctors" class="nav-link">
+                            <i class="fas fa-user-md"></i>
+                            <span>Doctors</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="topbar">
+                <div class="topbar__left">
+                    <button class="sidebar-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                <div class="topbar__right">
+                    <div class="user-menu">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span class="user-name">Admin User</span>
+                        <div class="dropdown">
+                            <button class="dropdown-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a href="/admin/profile" class="dropdown-item">Profile</a>
+                                <a href="/admin/settings" class="dropdown-item">Settings</a>
+                                <hr class="dropdown-divider">
+                                <a href="/account/logout" class="dropdown-item">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                @RenderBody()
+            </div>
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/admin.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

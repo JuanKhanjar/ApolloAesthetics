@@ -1,0 +1,58 @@
+graph TB
+    subgraph "Presentation Layer"
+        A[Controllers] --> B[Views]
+        A --> C[ViewModels]
+        A --> D[Areas/Admin]
+        B --> E[Razor Pages]
+        C --> F[DTOs]
+    end
+
+    subgraph "Application Layer"
+        G[Services] --> H[Interfaces]
+        G --> I[DTOs]
+        G --> J[Mappings]
+        H --> K[IAppointmentService]
+        H --> L[IPatientService]
+        H --> M[IAuthService]
+        H --> N[IUserService]
+        I --> O[AppointmentDto]
+        I --> P[PatientDto]
+        I --> Q[Auth DTOs]
+    end
+
+    subgraph "Domain Layer"
+        R[Entities] --> S[Interfaces]
+        R --> T[Enums]
+        R --> U[Constants]
+        S --> V[IRepository]
+        S --> W[IUnitOfWork]
+        R --> X[ApplicationUser]
+        R --> Y[Doctor]
+        R --> Z[Patient]
+        R --> AA[Appointment]
+        R --> BB[MedicalService]
+    end
+
+    subgraph "Infrastructure Layer"
+        CC[Data] --> DD[Repositories]
+        CC --> EE[DbContext]
+        CC --> FF[Migrations]
+        DD --> GG[Repository Pattern]
+        DD --> HH[UnitOfWork]
+        EE --> II[ApplicationDbContext]
+        FF --> JJ[SeedData]
+    end
+
+    %% Dependencies
+    A --> G
+    G --> R
+    G --> S
+    DD --> S
+    CC --> R
+    
+    %% Clean Architecture Rules
+    A -.-> |"Depends on"| G
+    G -.-> |"Depends on"| R
+    CC -.-> |"Implements"| S
+    CC -.-> |"Uses"| R
+

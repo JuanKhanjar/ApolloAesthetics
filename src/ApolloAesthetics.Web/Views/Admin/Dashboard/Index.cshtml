@@ -1,0 +1,181 @@
+@using ApolloAesthetics.Web.Models.Admin
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="dashboard">
+    <div class="dashboard__header">
+        <h1 class="dashboard__title">Dashboard</h1>
+        <p class="dashboard__subtitle">Welcome back! Here's what's happening today.</p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+        <div class="stat-card stat-card--primary">
+            <div class="stat-card__icon">
+                <i class="fas fa-calendar-day"></i>
+            </div>
+            <div class="stat-card__content">
+                <h3 class="stat-card__number">@Model.TodayAppointments</h3>
+                <p class="stat-card__label">Today's Appointments</p>
+            </div>
+        </div>
+
+        <div class="stat-card stat-card--success">
+            <div class="stat-card__icon">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="stat-card__content">
+                <h3 class="stat-card__number">@Model.ThisMonthAppointments</h3>
+                <p class="stat-card__label">This Month</p>
+            </div>
+        </div>
+
+        <div class="stat-card stat-card--warning">
+            <div class="stat-card__icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <div class="stat-card__content">
+                <h3 class="stat-card__number">@Model.PendingAppointments</h3>
+                <p class="stat-card__label">Pending</p>
+            </div>
+        </div>
+
+        <div class="stat-card stat-card--info">
+            <div class="stat-card__icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-card__content">
+                <h3 class="stat-card__number">@Model.TotalPatients</h3>
+                <p class="stat-card__label">Total Patients</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="dashboard-grid">
+        <!-- Today's Appointments -->
+        <div class="dashboard-card">
+            <div class="dashboard-card__header">
+                <h2 class="dashboard-card__title">Today's Appointments</h2>
+                <a href="/admin/appointments" class="btn btn--sm btn--outline">View All</a>
+            </div>
+            <div class="dashboard-card__content">
+                @if (Model.TodayAppointmentsList.Any())
+                {
+                    <div class="appointment-list">
+                        @foreach (var appointment in Model.TodayAppointmentsList.Take(5))
+                        {
+                            <div class="appointment-item">
+                                <div class="appointment-item__time">
+                                    @appointment.AppointmentDate.ToString("HH:mm")
+                                </div>
+                                <div class="appointment-item__details">
+                                    <h4 class="appointment-item__patient">@appointment.PatientName</h4>
+                                    <p class="appointment-item__service">@appointment.ServiceName</p>
+                                    <p class="appointment-item__doctor">Dr. @appointment.DoctorName</p>
+                                </div>
+                                <div class="appointment-item__status">
+                                    <span class="badge badge--@appointment.Status.ToString().ToLower()">
+                                        @appointment.Status
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="empty-state">
+                        <i class="fas fa-calendar-times"></i>
+                        <p>No appointments scheduled for today</p>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Recent Patients -->
+        <div class="dashboard-card">
+            <div class="dashboard-card__header">
+                <h2 class="dashboard-card__title">Recent Patients</h2>
+                <a href="/admin/patients" class="btn btn--sm btn--outline">View All</a>
+            </div>
+            <div class="dashboard-card__content">
+                @if (Model.RecentPatients.Any())
+                {
+                    <div class="patient-list">
+                        @foreach (var patient in Model.RecentPatients)
+                        {
+                            <div class="patient-item">
+                                <div class="patient-item__avatar">
+                                    @patient.FirstName.First()@patient.LastName.First()
+                                </div>
+                                <div class="patient-item__details">
+                                    <h4 class="patient-item__name">@patient.FullName</h4>
+                                    <p class="patient-item__email">@patient.Email</p>
+                                    <p class="patient-item__phone">@patient.PhoneNumber</p>
+                                </div>
+                                <div class="patient-item__date">
+                                    @patient.CreatedAt.ToString("MMM dd")
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="empty-state">
+                        <i class="fas fa-user-plus"></i>
+                        <p>No recent patients</p>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- New Consultation Requests -->
+        <div class="dashboard-card dashboard-card--full">
+            <div class="dashboard-card__header">
+                <h2 class="dashboard-card__title">New Consultation Requests</h2>
+                <span class="badge badge--primary">@Model.NewConsultations New</span>
+            </div>
+            <div class="dashboard-card__content">
+                @if (Model.NewConsultationRequests.Any())
+                {
+                    <div class="consultation-list">
+                        @foreach (var consultation in Model.NewConsultationRequests.Take(5))
+                        {
+                            <div class="consultation-item">
+                                <div class="consultation-item__details">
+                                    <h4 class="consultation-item__name">@consultation.FullName</h4>
+                                    <p class="consultation-item__service">Interested in: @consultation.ServiceOfInterest</p>
+                                    <p class="consultation-item__message">@consultation.Message</p>
+                                    <div class="consultation-item__contact">
+                                        <span><i class="fas fa-envelope"></i> @consultation.Email</span>
+                                        <span><i class="fas fa-phone"></i> @consultation.Phone</span>
+                                    </div>
+                                </div>
+                                <div class="consultation-item__actions">
+                                    <button class="btn btn--sm btn--primary">Respond</button>
+                                    <button class="btn btn--sm btn--outline">Assign</button>
+                                </div>
+                                <div class="consultation-item__date">
+                                    @consultation.CreatedAt.ToString("MMM dd, HH:mm")
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="empty-state">
+                        <i class="fas fa-comments"></i>
+                        <p>No new consultation requests</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
